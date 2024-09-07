@@ -1,0 +1,10 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: api:latest
+    volumes:
+      - .:/home/backend
+    ports:
+      - 8080:8080
