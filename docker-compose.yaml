@@ -1,10 +1,25 @@
+# Only for development!!!!
 services:
   api:
+    container_name: api
+    image: "orange-kitty-api:latest"
     build:
       context: .
       dockerfile: Dockerfile
-    image: api:latest
+    depends_on:
+      - db
     volumes:
       - .:/home/backend
     ports:
-      - 8080:8080
+      - "8080:8080"
+  db:
+    image: "postgres:17-alpine"
+    container_name: db
+    environment:
+      - POSTGRES_USER=${DB_DEV_USER}
+      - POSTGRES_PASSWORD=${DB_DEV_PASSWORD}
+      - POSTGRES_DB=${DB_DEV_NAME}
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
